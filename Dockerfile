@@ -12,9 +12,9 @@ FROM alpine:3.20
 
 WORKDIR /app
 
-RUN addgroup -S app && adduser -S -G app app
+RUN addgroup -S app && adduser -S -G app app && chown app:app /app
 
-COPY --from=builder /out/parcel-tracker /app/parcel-tracker
+COPY --chown=app:app --from=builder /out/parcel-tracker /app/parcel-tracker
 COPY --chown=app:app tracker.db /app/tracker.db
 
 USER app
